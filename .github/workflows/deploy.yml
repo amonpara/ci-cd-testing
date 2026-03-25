@@ -1,0 +1,30 @@
+name: Deploy to EC2 (Self-Hosted Runner)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Sync Code to App Directory
+        run: |
+          rm -rf /var/www/app/*
+          cp -r . /var/www/app/
+
+      - name: Install Dependencies
+        run: |
+          cd /var/www/app
+          npm install
+
+      - name: Restart App with PM2
+        run: |
+          cd /var/www/app
+          pm2 restart app || pm2 start index.js --name app
+          pm2 save
