@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 app.get("/", (req, res) => {
-  res.send("🚀 CI/CD Pipeline Working Successfully!");
+  res.send("🚀 CI/CD Pipeline Working Successfully! I'll also check with new push in my Git repo");
 });
 
 app.listen(PORT, () => {
