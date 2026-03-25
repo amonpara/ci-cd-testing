@@ -13,10 +13,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Sync Code to App Directory
+      - name: Deploy Code 
         run: |
-          rm -rf /var/www/app/*
-          cp -r . /var/www/app/
+          rsync -av --delete --exclude=".git" ./ /var/www/app/
 
       - name: Install Dependencies
         run: |
